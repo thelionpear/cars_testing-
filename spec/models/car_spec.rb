@@ -31,7 +31,7 @@ RSpec.describe Car, type: :model do
       before(:each) do 
         @car1 = Car.create(make: 'Zcar', model: 'T-rex', price: 2000 )
         @car2 = Car.create(make: 'Lcar', model: 'Z-rex', price: 5)
-        @car3 = Car.create(make: 'Acar', model 'A-rex', price: 30000)
+        @car3 = Car.create(make: 'Acar', model: 'A-rex', price: 30000)
         @car4 = Car.create(make: 'Bcar', model: 'B-rex', price: 800)
       end 
 
@@ -70,14 +70,39 @@ RSpec.describe Car, type: :model do
         expect(@cars[2]).to eq(@car4)
         expect(@cars[3]).to eq(@car2)
       end 
-
     end 
-  end 
+  end  
 
     context 'instance' do 
 
-    end 
+      before(:each) do
 
+        @attr = ActiveSupport::HashWithIndifferentAccess.new ({ 
+          age: 2,
+          make: 'Toyota',
+          price: 10000.0,
+          model: 'Prius',
+          mileage: 1000,
+          interior: 'Leather',
+          color: 'Red' 
+        })
+        @car = Car.create(@attr)
+      end 
+
+      it 'paints the car' do
+        expected = 'Pink'
+        @car.paint(expected)
+        expect(@car.color).to eq(expected)
+      end 
+
+      it 'returns the car info' do 
+        expect(@car.info).to eq(@attr)
+      end 
+
+      it 'honks the horn' do
+        expect(@car.honk).to eq('Beep Beep')
+      end 
+
+    
   end 
-
 end
