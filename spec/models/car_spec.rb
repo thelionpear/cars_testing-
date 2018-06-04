@@ -25,4 +25,59 @@ RSpec.describe Car, type: :model do
     it { should validate_presence_of(:make) }
   end 
 
+  describe 'methods' do 
+    context 'class' do 
+
+      before(:each) do 
+        @car1 = Car.create(make: 'Zcar', model: 'T-rex', price: 2000 )
+        @car2 = Car.create(make: 'Lcar', model: 'Z-rex', price: 5)
+        @car3 = Car.create(make: 'Acar', model 'A-rex', price: 30000)
+        @car4 = Car.create(make: 'Bcar', model: 'B-rex', price: 800)
+      end 
+
+      it 'orders by model asc' do 
+        @cars = Car.by_model
+        #expect(@cars).to eq([@car3, @car4, @car1, @car2])
+        expect(@cars[0]).to eq(@car3)
+        expect(@cars[1]).to eq(@car4)
+        expect(@cars[2]).to eq(@car1)
+        expect(@cars[3]).to eq(@car2)
+      end 
+
+      it 'orders by make asc' do 
+        @cars = Car.by_make
+        #expect(@cars).to eq([@car3, @car4, @car2, @car1])
+        expect(@cars[0]).to eq(@car3)
+        expect(@cars[1]).to eq(@car4)
+        expect(@cars[2]).to eq(@car2)
+        expect(@cars[3]).to eq(@car1)
+      end 
+
+      it 'orders by price asc' do 
+        @cars = Car.by_price
+        #expect(@cars).to eq([@car2, @car4, @car1, @car2])
+        expect(@cars[0]).to eq(@car2)
+        expect(@cars[1]).to eq(@car4)
+        expect(@cars[2]).to eq(@car1)
+        expect(@cars[3]).to eq(@car3)
+      end 
+
+      it 'orders by price desc' do 
+        @cars = Car.by_price(:desc)
+        #expect(@cars).to eq([@car3, @car1, @car4, @car2])
+        expect(@cars[0]).to eq(@car3)
+        expect(@cars[1]).to eq(@car1)
+        expect(@cars[2]).to eq(@car4)
+        expect(@cars[3]).to eq(@car2)
+      end 
+
+    end 
+  end 
+
+    context 'instance' do 
+
+    end 
+
+  end 
+
 end
